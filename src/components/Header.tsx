@@ -1,10 +1,10 @@
 import React from "react";
 
-type Props = {
+type headerProps = {
   title: string;
 };
 
-const Header = (props: Props) => {
+const Header = (props: headerProps) => {
   const headerStyles = {
     backgroundColor: "rgba(0, 0, 0, 0.4)",
     color: "#ff6a95",

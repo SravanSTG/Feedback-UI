@@ -1,5 +1,5 @@
-import React, { MouseEventHandler } from "react";
-import {FaTimes} from "react-icons/fa"
+import React from "react";
+import { FaTimes } from "react-icons/fa";
 
 type cardProps = {
   id: number;

@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import Card from "./shared/Card";
 
 type feedbackItemProps = {
@@ -9,8 +9,15 @@ type feedbackItemProps = {
   handleDelete: (id: number) => void;
 };
 
-const FeedbackItem: React.FC<feedbackItemProps> = ({ id, rating, text, handleDelete }) => {
-  return <Card id={id} rating={rating} text={text} handleDelete={handleDelete} />;
+const FeedbackItem: React.FC<feedbackItemProps> = ({
+  id,
+  rating,
+  text,
+  handleDelete,
+}) => {
+  return (
+    <Card id={id} rating={rating} text={text} handleDelete={handleDelete} />
+  );
 };
 
 export default FeedbackItem;
