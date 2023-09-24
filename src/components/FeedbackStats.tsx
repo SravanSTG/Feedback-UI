@@ -1,11 +1,9 @@
-import React from "react";
-import { FeedbackObject } from "../interfaces";
+import React, { useContext } from "react";
+import FeedbackContext, { FeedbackContextType } from "../context/FeedbackContext";
 
-type FeedbackStatProps = {
-  feedback: FeedbackObject[];
-};
+const FeedbackStats: React.FC = () => {
+  const { feedback } = useContext(FeedbackContext) as FeedbackContextType;
 
-const FeedbackStats: React.FC<FeedbackStatProps> = ({ feedback }) => {
   let average =
     feedback.reduce((acc, cur) => {
       return acc + cur.rating;

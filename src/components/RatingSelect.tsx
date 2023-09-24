@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import FeedbackContext, { FeedbackContextType } from "../context/FeedbackContext";
 
 type ratingSelectProps = {
   select: (rating: number) => void;
@@ -6,6 +7,14 @@ type ratingSelectProps = {
 
 const RatingSelect: React.FC<ratingSelectProps> = ({ select }) => {
   const [selected, setSelected] = useState<number>(10);
+
+  const { feedbackEdit } = useContext(FeedbackContext) as FeedbackContextType;
+
+  useEffect(() => {
+    if (feedbackEdit.edit) {
+      setSelected(feedbackEdit.item.rating);
+    }
+  }, [feedbackEdit.edit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelected(parseInt(e.target.value));

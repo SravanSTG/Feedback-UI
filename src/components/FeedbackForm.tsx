@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RatingSelect from "./RatingSelect";
 import Button from "./shared/Button";
-import { FeedbackObject } from "../interfaces";
+import FeedbackContext, { FeedbackContextType } from "../context/FeedbackContext";
 
-type feedbackFormProps = {
-  feedback: FeedbackObject[];
-  handleAdd: (newFeedback: FeedbackObject) => void;
-};
-
-const FeedbackForm: React.FC<feedbackFormProps> = ({ feedback, handleAdd }) => {
+const FeedbackForm: React.FC = () => {
   const [text, setText] = useState<string>("");
   const [rating, setRating] = useState<number>(10);
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const [message, setMessage] = useState<string>("");
+
+  const {feedback, feedbackEdit, addFeedback, updateFeedback} = useContext(FeedbackContext) as FeedbackContextType;
+
+  useEffect(() => {
+    if (feedbackEdit.edit) {
+      setBtnDisabled(false);
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
+    }
+  }, [feedbackEdit]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (text === "") {
@@ -34,13 +39,20 @@ const FeedbackForm: React.FC<feedbackFormProps> = ({ feedback, handleAdd }) => {
 
     if (text.trim().length > 10) {
       const newFeedback = {
-        id: feedback.length + 1,
+        id: feedbackEdit.edit === true ? feedbackEdit.item.id : feedback.length + 1,
         text: text,
         rating: rating,
       };
 
-      handleAdd(newFeedback);
+      if (feedbackEdit.edit === true) {
+        updateFeedback(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
+
       setText("");
+      setRating(10);
+      setBtnDisabled(prev => true);
     }
   };
 

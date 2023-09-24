@@ -1,16 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import FeedbackItem from "./FeedbackItem";
-import { FeedbackObject } from "../interfaces";
+import FeedbackContext, { FeedbackContextType } from "../context/FeedbackContext";
 
-type FeedbackListProps = {
-  feedback: FeedbackObject[];
-  handleDelete: (id: number) => void;
-};
+const FeedbackList: React.FC = () => {
+  const { feedback } = useContext(FeedbackContext) as FeedbackContextType;
 
-const FeedbackList: React.FC<FeedbackListProps> = ({
-  feedback,
-  handleDelete,
-}) => {
   return (
     <div>
       {feedback.length > 0 ? (
@@ -21,7 +15,6 @@ const FeedbackList: React.FC<FeedbackListProps> = ({
               id={item.id}
               rating={item.rating}
               text={item.text}
-              handleDelete={handleDelete}
             />
           );
         })

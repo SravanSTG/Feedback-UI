@@ -6,17 +6,15 @@ type feedbackItemProps = {
   key: number;
   rating: number;
   text: string;
-  handleDelete: (id: number) => void;
 };
 
 const FeedbackItem: React.FC<feedbackItemProps> = ({
   id,
   rating,
   text,
-  handleDelete,
 }) => {
   return (
-    <Card id={id} rating={rating} text={text} handleDelete={handleDelete} />
+    <Card id={id} rating={rating} text={text} />
   );
 };
 
